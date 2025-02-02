@@ -1,3 +1,4 @@
+import 'package:basevenue_wolf/who_knows/view/main_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,10 +13,11 @@ class WhoKnows extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(title: Text('Hello, Flutter!')),
-        body: Center(child: Text('Welcome to Flutter')),
-      ),
+      home: MainScreen(),
+      theme: ThemeData(
+      primarySwatch: Colors.blue,
+      fontFamily: 'Hellix',
+      )
     );
   }
 }

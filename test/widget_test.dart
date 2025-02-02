@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:basevenue_wolf/main_who_knows.dart';
+import 'package:basevenue_wolf/who_knows/main_who_knows.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
