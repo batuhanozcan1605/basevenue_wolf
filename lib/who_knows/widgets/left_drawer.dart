@@ -62,14 +62,14 @@ class _LeftDrawerState extends State<LeftDrawer> {
                 children: [
                   Text('0', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white)),
                   SizedBox(width: 4,),
-                  Image.asset('assets/images/who_knows/key.png', height: 50),
+                  Image.asset(keyPath, height: 50),
                 ],
               ),
               Row(
                 children: [
                   Text('0', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white)),
                   SizedBox(width: 4,),
-                  Image.asset('assets/images/who_knows/feather.png', height: 50),
+                  Image.asset(featherPath, height: 50),
                 ],
               ),
             ],
@@ -89,20 +89,20 @@ class _LeftDrawerState extends State<LeftDrawer> {
                 children: [
                   GestureDetector(
                     onTap: decreaseKeys,
-                    child: Image.asset('assets/images/who_knows/decrease.png', height: 30),
+                    child: Image.asset(decreasePath, height: 30),
                   ),
                   SizedBox(width: 10),
                   Text('$keyCount', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
                   SizedBox(width: 10),
                   GestureDetector(
                     onTap: increaseKeys,
-                    child: Image.asset('assets/images/who_knows/increase.png', height: 30),
+                    child: Image.asset(increasePath, height: 30),
                   ),
                 ],
               ),
               Row(
                 children: [
-                  Image.asset('assets/images/who_knows/key.png', height: 50),
+                  Image.asset(keyPath, height: 50),
                   SizedBox(width: 5),
                   Text.rich(
                     TextSpan(
@@ -134,20 +134,20 @@ class _LeftDrawerState extends State<LeftDrawer> {
                 children: [
                   GestureDetector(
                     onTap: decreaseFeathers,
-                    child: Image.asset('assets/images/who_knows/decrease.png', height: 30),
+                    child: Image.asset(decreasePath, height: 30),
                   ),
                   SizedBox(width: 10),
                   Text('$featherCount', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
                   SizedBox(width: 10),
                   GestureDetector(
                     onTap: increaseFeathers,
-                    child: Image.asset('assets/images/who_knows/increase.png', height: 30),
+                    child: Image.asset(increasePath, height: 30),
                   ),
                 ],
               ),
               Row(
                 children: [
-                  Image.asset('assets/images/who_knows/feather.png', height: 50),
+                  Image.asset(featherPath, height: 50),
                   SizedBox(width: 5),
                   Text.rich(
                     TextSpan(
