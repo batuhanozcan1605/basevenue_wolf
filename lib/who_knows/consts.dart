@@ -1,0 +1,1 @@
+const String yellowButtonPath = "assets/images/who_knows/button_yellow.png";
