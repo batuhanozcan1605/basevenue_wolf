@@ -69,7 +69,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
             // Title
             const Text(
-              "Welcome to BasevenueCat",
+              "Welcome to BasevenueWolf",
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
