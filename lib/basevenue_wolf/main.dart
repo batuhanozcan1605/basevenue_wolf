@@ -1,4 +1,4 @@
-import 'package:basevenue_wolf/basevenue_wolf/view/onboarding_screen.dart';
+import 'package:basevenue_wolf/basevenue_wolf/view/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
