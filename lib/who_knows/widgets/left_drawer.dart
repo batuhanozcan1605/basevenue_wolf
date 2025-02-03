@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../color_palette.dart';
 import '../consts.dart';
 import 'custom_button.dart';
@@ -49,7 +50,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
     int totalPrice = (keyCount * keyPrice) + (featherCount * featherPrice);
 
     return Container(
-      width: 330,
+      width: 280.w,
       color: ColorPalette.drawer,
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 108),
       child: Column(

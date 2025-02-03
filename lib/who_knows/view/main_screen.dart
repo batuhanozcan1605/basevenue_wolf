@@ -1,5 +1,7 @@
+import 'package:basevenue_wolf/who_knows/view/game_area.dart';
 import 'package:basevenue_wolf/who_knows/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../color_palette.dart';
 import '../consts.dart';
@@ -11,15 +13,13 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorPalette.background,
       appBar: _appBar(),
       body: Row(
         children: [
           LeftDrawer(),
-          Expanded(
-            child: Container(
-              color: ColorPalette.background,
-            ),
-          ),
+          SizedBox(width: 200.w,),
+          GameArea(),
         ],
       ),
     );
