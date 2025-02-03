@@ -1,0 +1,1 @@
+const String logoPath = "assets/images/basevenue_wolf/logo.png";
