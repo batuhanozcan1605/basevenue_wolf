@@ -26,68 +26,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: appBar(),
       body: Column(
         children: [
-          // Navigation Bar
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            height: 60,
-            color: Colors.grey[300],
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  color: Colors.cyanAccent,
-                  child: const Text(
-                    'LOGO',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                walletAddress == null
-                    ? ElevatedButton(
-                  onPressed: connectWallet,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  ),
-                  child: const Text(
-                    'Connect Wallet',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                )
-                    : PopupMenuButton(
-                  onSelected: (value) {
-                    if (value == 'disconnect') {
-                      disconnectWallet();
-                    }
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          walletAddress!,
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                        const Icon(Icons.arrow_drop_down, color: Colors.white),
-                      ],
-                    ),
-                  ),
-                  itemBuilder: (context) => [
-                    const PopupMenuItem(
-                      value: 'disconnect',
-                      child: Text('Disconnect Wallet'),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
 
           // Main Content
           Expanded(
@@ -132,4 +73,63 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  AppBar appBar() => AppBar(
+    backgroundColor: Colors.grey[300], // Background color
+    title: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      color: Colors.cyanAccent,
+      child: const Text(
+        'LOGO',
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      ),
+    ),
+    actions: [
+      walletAddress == null
+          ? ElevatedButton(
+        onPressed: connectWallet,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blueAccent,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        ),
+        child: const Text(
+          'Connect Wallet',
+          style: TextStyle(color: Colors.white),
+        ),
+      )
+          : PopupMenuButton(
+        onSelected: (value) {
+          if (value == 'disconnect') {
+            disconnectWallet();
+          }
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          decoration: BoxDecoration(
+            color: Colors.blueAccent,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              Text(
+                walletAddress!,
+                style: const TextStyle(color: Colors.white),
+              ),
+              const Icon(Icons.arrow_drop_down, color: Colors.white),
+            ],
+          ),
+        ),
+        itemBuilder: (context) => [
+          const PopupMenuItem(
+            value: 'disconnect',
+            child: Text('Disconnect Wallet'),
+          ),
+        ],
+      ),
+      SizedBox(width: 20,)
+    ],
+  );
+
+
+
 }
