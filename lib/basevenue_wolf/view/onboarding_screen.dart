@@ -1,7 +1,9 @@
+import 'package:basevenue_wolf/basevenue_wolf/view_model/main_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
-
 import '../consts.dart';
+import 'package:provider/provider.dart' as prov;
+
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -11,52 +13,12 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  String? walletAddress;
 
-  bool get isConnected => walletAddress != null;
-  bool get isMetaMaskAvailable => ethereum != null;
-
-  Future<void> connectWallet() async {
-    if (isMetaMaskAvailable) {
-      try {
-        final accounts = await ethereum!.requestAccount(); // Request account access
-        setState(() {
-          walletAddress = accounts.first; // Store the connected address
-        });
-
-        debugPrint("Connected Wallet Address (Public Key): $walletAddress");
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("Connected Wallet: ${walletAddress!}"),
-              duration: const Duration(seconds: 3),
-              backgroundColor: Colors.green,
-            ),
-          );
-        }
-
-        // Redirect after connection
-        if (walletAddress != null) {
-          Future.delayed(const Duration(seconds: 1), () {
-            Navigator.pushReplacementNamed(context, '/home');
-          });
-        }
-      } catch (e) {
-        print("Error connecting wallet: $e");
-      }
-    } else {
-      print("MetaMask not available");
-    }
-  }
-
-  void disconnectWallet() {
-    setState(() {
-      walletAddress = null;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = prov.Provider.of<MainViewModel>(context, listen: false);
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
@@ -94,19 +56,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
             const SizedBox(height: 40),
 
-            if (isConnected) ...[
+            if (viewModel.isConnected) ...[
               Text(
-                "Connected: ${walletAddress!.substring(0, 6)}...${walletAddress!.substring(walletAddress!.length - 4)}",
+                "Connected: ${viewModel.walletAddress!.substring(0, 6)}...${viewModel.walletAddress!.substring(viewModel.walletAddress!.length - 4)}",
                 style: const TextStyle(color: Colors.greenAccent, fontSize: 16),
               ),
               const SizedBox(height: 10),
               TextButton(
-                onPressed: disconnectWallet,
+                onPressed: viewModel.disconnectWallet,
                 child: const Text("Disconnect", style: TextStyle(color: Colors.redAccent)),
               ),
-            ] else if (isMetaMaskAvailable) ...[
+            ] else if (viewModel.isMetaMaskAvailable) ...[
               ElevatedButton(
-                onPressed: connectWallet,
+                onPressed: ()
+                async {
+                  viewModel.connectWallet(context);
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blueAccent,
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
