@@ -1,4 +1,5 @@
 import 'package:basevenue_wolf/basevenue_wolf/view/home_page.dart';
+import 'package:basevenue_wolf/basevenue_wolf/view/main_screen.dart';
 import 'package:basevenue_wolf/basevenue_wolf/view/onboarding_screen.dart';
 import 'package:basevenue_wolf/basevenue_wolf/view_model/main_view_model.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class BasevenueWolf extends StatelessWidget {
               '/home': (context) => HomePage(),
             },
             debugShowCheckedModeBanner: false,
-            home: OnboardingScreen(),
+            home: MainScreen(),
             theme: ThemeData(
               fontFamily: 'Hellix',
             )

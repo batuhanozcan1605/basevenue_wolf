@@ -1,11 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 
+enum MenuItem {
+  projectName,
+  platformWallet,
+  tokenManagement,
+  products,
+  transactions,
+  aiInsights,
+}
+
 class MainViewModel extends ChangeNotifier {
   String? walletAddress;
 
   bool get isConnected => walletAddress != null;
   bool get isMetaMaskAvailable => ethereum != null;
+
+  MenuItem _selectedMenu = MenuItem.projectName;
+  MenuItem get selectedMenu => _selectedMenu;
+
+  void updateMenu(MenuItem menu) {
+  _selectedMenu = menu;
+  notifyListeners();
+  }
+
 
   Future<void> connectWallet(BuildContext context) async {
     if (ethereum != null) { // Check if MetaMask (or similar) is available
