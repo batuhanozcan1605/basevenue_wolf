@@ -1,6 +1,7 @@
 // main_screen.dart
 import 'package:basevenue_wolf/basevenue_wolf/color_palette.dart';
 import 'package:basevenue_wolf/basevenue_wolf/consts.dart';
+import 'package:basevenue_wolf/basevenue_wolf/view/menu_pages/platform_wallet.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart' as prov;
 import '../view_model/main_view_model.dart';
@@ -96,7 +97,7 @@ class MainScreen extends StatelessWidget {
           case MenuItem.projectName:
             return const Center(child: Text("Project Details Content"));
           case MenuItem.platformWallet:
-            return const Center(child: Text("Platform Wallet Content"));
+            return const PlatformWalletPage();
           case MenuItem.tokenManagement:
             return const Center(child: Text("Token Management Content"));
           case MenuItem.products:
