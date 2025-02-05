@@ -11,7 +11,7 @@ class MainScreen extends StatelessWidget {
   // Top navigation bar widget
   PreferredSizeWidget _buildTopNavBar(BuildContext context) {
     return AppBar(
-      backgroundColor: ColorPalette.darkBackground,
+      backgroundColor: Colors.white,
       elevation: 1,
       title: Row(
         children: [

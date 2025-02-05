@@ -24,7 +24,7 @@ class BasevenueWolf extends StatelessWidget {
         minTextAdapt: true,
         child: MaterialApp(
             routes: {
-              '/home': (context) => OnboardingScreen(),
+              '/home': (context) => MainScreen(),
             },
             debugShowCheckedModeBanner: false,
             home: OnboardingScreen(),
