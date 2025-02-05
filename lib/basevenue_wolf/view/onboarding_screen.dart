@@ -27,7 +27,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           children: [
             GestureDetector(
                 onTap: () => debugPrint("Logo is tapped"),
-                child: Image.asset(logoPath, height: 120)), // Your logo
+                child: Image.asset(iconPath, height: 120)), // Your logo
 
             const SizedBox(height: 30),
 

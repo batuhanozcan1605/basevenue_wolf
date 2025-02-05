@@ -1,4 +1,6 @@
 // main_screen.dart
+import 'package:basevenue_wolf/basevenue_wolf/color_palette.dart';
+import 'package:basevenue_wolf/basevenue_wolf/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart' as prov;
 import '../view_model/main_view_model.dart';
@@ -9,17 +11,11 @@ class MainScreen extends StatelessWidget {
   // Top navigation bar widget
   PreferredSizeWidget _buildTopNavBar(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorPalette.darkBackground,
       elevation: 1,
       title: Row(
         children: [
-          const Text(
-            'RevenueCat Logo',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Image.asset(logoPath, height: 40),
           const Spacer(),
           TextButton(
             onPressed: () {},
@@ -58,7 +54,7 @@ class MainScreen extends StatelessWidget {
         children: [
           ListTile(
             leading: const Icon(Icons.construction),
-            title: const Text("[Project Name]"),
+            title: const Text("WHO KNOWS"),
             onTap: () => viewModel.updateMenu(MenuItem.projectName),
           ),
           const Divider(),

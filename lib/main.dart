@@ -1,4 +1,5 @@
 import 'package:basevenue_wolf/basevenue_wolf/view/main_screen.dart';
+import 'package:basevenue_wolf/basevenue_wolf/view/onboarding_screen.dart';
 import 'package:basevenue_wolf/basevenue_wolf/view_model/main_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,10 +24,10 @@ class BasevenueWolf extends StatelessWidget {
         minTextAdapt: true,
         child: MaterialApp(
             routes: {
-              '/home': (context) => MainScreen(),
+              '/home': (context) => OnboardingScreen(),
             },
             debugShowCheckedModeBanner: false,
-            home: MainScreen(),
+            home: OnboardingScreen(),
             theme: ThemeData(
               fontFamily: 'Hellix',
             )
