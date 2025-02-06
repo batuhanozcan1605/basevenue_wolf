@@ -1,6 +1,5 @@
 import 'package:basevenue_wolf/basevenue_wolf/view_model/main_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web3/flutter_web3.dart';
 import '../consts.dart';
 import 'package:provider/provider.dart' as prov;
 

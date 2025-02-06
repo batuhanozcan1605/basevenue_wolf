@@ -11,4 +11,6 @@ class MessagesViewModel extends ChangeNotifier {
     messages.add({"role": role, "text": text});
     notifyListeners();
   }
+
+
 }

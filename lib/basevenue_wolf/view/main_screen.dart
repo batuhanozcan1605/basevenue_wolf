@@ -7,6 +7,7 @@ import 'package:basevenue_wolf/basevenue_wolf/view/widgets/chat_messages_list.da
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart' as prov;
 import '../view_model/main_view_model.dart';
+import 'menu_pages/token_management_page.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -106,7 +107,7 @@ class _MainScreenState extends State<MainScreen> {
           case MenuItem.platformWallet:
             return const PlatformWalletPage();
           case MenuItem.tokenManagement:
-            return const Center();
+            return const TokenManagementPage();
           case MenuItem.products:
             return const Center(child: Text("Products Content"));
           case MenuItem.transactions:
