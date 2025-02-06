@@ -10,3 +10,5 @@ const String aiInsightsPath = "assets/images/basevenue_wolf/menu_icons/ai_insigh
 //Buttons
 const String submitButtonPath = "assets/images/basevenue_wolf/buttons/submit_to_assistant.png";
 const String walletButtonPath = "assets/images/basevenue_wolf/buttons/wallet_button.png";
+
+const String gradientCardPath = "assets/images/basevenue_wolf/gradient_card.png";

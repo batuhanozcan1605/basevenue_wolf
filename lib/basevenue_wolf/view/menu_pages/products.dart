@@ -138,7 +138,7 @@ class _ProductsPageState extends State<ProductsPage> {
               decoration: InputDecoration(
                 labelText: "Name",
                 labelStyle: TextStyle(
-                  color: Colors.white,
+                  color: Colors.white.withOpacity(0.5),
                   fontWeight: FontWeight.bold,
                 ),
                 border: OutlineInputBorder(
@@ -163,7 +163,7 @@ class _ProductsPageState extends State<ProductsPage> {
               decoration: InputDecoration(
                 labelText: "Description",
                 labelStyle: TextStyle(
-                  color: Colors.white,
+                  color: Colors.white.withOpacity(0.5),
                   fontWeight: FontWeight.bold,
                 ),
                 border: OutlineInputBorder(
@@ -184,11 +184,11 @@ class _ProductsPageState extends State<ProductsPage> {
             TextField(
               cursorColor: ColorPalette.primaryVariant,
               controller: functionalityController,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white.withOpacity(0.5),),
               decoration: InputDecoration(
                 labelText: "Functionality in the project",
                 labelStyle: TextStyle(
-                  color: Colors.white,
+                  color: Colors.white.withOpacity(0.5),
                   fontWeight: FontWeight.bold,
                 ),
                 border: OutlineInputBorder(
@@ -214,7 +214,7 @@ class _ProductsPageState extends State<ProductsPage> {
               decoration: InputDecoration(
                 labelText: "Price Ratio (to main token)",
                 labelStyle: TextStyle(
-                  color: Colors.white,
+                  color: Colors.white.withOpacity(0.5),
                   fontWeight: FontWeight.bold,
                 ),
                 border: OutlineInputBorder(

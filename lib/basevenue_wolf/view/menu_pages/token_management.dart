@@ -1,7 +1,8 @@
 import 'package:basevenue_wolf/basevenue_wolf/view_model/messages_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import '../../color_palette.dart';
+import '../../consts.dart';
 import '../../utilities/propmts.dart';
 
 class TokenManagementPage extends StatefulWidget {
@@ -23,66 +24,77 @@ class _TokenManagementPageState extends State<TokenManagementPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Supply Information Cards
-          Row(
-            children: [
-              _buildInfoCard("Total Supply", "1,000,000"),
-              SizedBox(width: 16),
-              _buildInfoCard("Circulating Supply", "750,000"),
-            ],
-          ),
-
-          SizedBox(height: 24),
-
-          // Create Token Button
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                _isFormExpanded = !_isFormExpanded;
-              });
-            },
-            child: Text("Create token for your project."),
-          ),
-
-          SizedBox(height: 16),
-
-          // Expanded Form
-          if (_isFormExpanded) Expanded(child: _buildTokenCreationForm()),
-
-          SizedBox(height: 8),
-          // Submit Token Button
-          if (_isFormExpanded) Align(
-            alignment: Alignment.bottomLeft,
-            child: ElevatedButton(
-              onPressed: () {
-
-                String projectName = _projectNameController.text.trim();
-                String description = _descriptionController.text.trim();
-                String extras = _extrasController.text.trim();
-                String tokenName = _tokenNameController.text.trim();
-                String tokenSymbol = _tokenSymbolController.text.trim();
-                String tokenFunctionality = _tokenFunctionalityController.text.trim();
-
-                String aiPrompt = Prompts.createProjectTokenPrompt(
-                  projectName: projectName,
-                  description: description,
-                  extras: extras,
-                  tokenName: tokenName,
-                  tokenSymbol: tokenSymbol,
-                  tokenFunctionality: tokenFunctionality,
-                );
-
-                context.read<MessagesViewModel>().setMessageText(aiPrompt);
-              },
-              child: Text("Submit Token to Assistant"),
+    return Scaffold(
+      backgroundColor: ColorPalette.background,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 80,),
+            // Supply Information Cards
+            Row(
+              children: [
+                _buildInfoCard("Total Supply", "1,000,000"),
+                SizedBox(width: 16),
+                _buildInfoCard("Circulating Supply", "750,000"),
+              ],
             ),
-          ),
-        ],
+
+            SizedBox(height: 24),
+
+            // Create Token Button
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: ColorPalette.primaryVariant, // Button background
+                side: BorderSide(color: ColorPalette.primaryVariant, width: 1), // Border color & width
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10), // Rounded corners
+                ),
+              ),
+              onPressed: () {
+                setState(() {
+                  _isFormExpanded = !_isFormExpanded;
+                });
+              },
+              child: Text("Create token for your project.", style: TextStyle(color: Colors.white),),
+            ),
+
+            SizedBox(height: 16),
+
+            // Expanded Form
+            if (_isFormExpanded) Expanded(child: _buildTokenCreationForm()),
+
+            SizedBox(height: 8),
+            // Submit Token Button
+            if (_isFormExpanded) Align(
+              alignment: Alignment.bottomLeft,
+              child: GestureDetector(
+                onTap: () {
+
+                  String projectName = _projectNameController.text.trim();
+                  String description = _descriptionController.text.trim();
+                  String extras = _extrasController.text.trim();
+                  String tokenName = _tokenNameController.text.trim();
+                  String tokenSymbol = _tokenSymbolController.text.trim();
+                  String tokenFunctionality = _tokenFunctionalityController.text.trim();
+
+                  String aiPrompt = Prompts.createProjectTokenPrompt(
+                    projectName: projectName,
+                    description: description,
+                    extras: extras,
+                    tokenName: tokenName,
+                    tokenSymbol: tokenSymbol,
+                    tokenFunctionality: tokenFunctionality,
+                  );
+
+                  context.read<MessagesViewModel>().setMessageText(aiPrompt);
+                },
+                child: Image.asset(submitButtonPath, height: 50,)
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -90,20 +102,46 @@ class _TokenManagementPageState extends State<TokenManagementPage> {
   Widget _buildInfoCard(String title, String value) {
     return Expanded(
       child: Card(
+        color: Colors.transparent,
         elevation: 4,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), // Optional rounded corners
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Stack(
+           
             children: [
-              Text(
-                title,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              // Background Image
+              Positioned.fill(
+                child: Image.asset(
+                  gradientCardPath,
+                  fit: BoxFit.fill, // Ensures the image covers the whole card
+                ),
               ),
-              SizedBox(height: 8),
-              Text(
-                value,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              // Text Content
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white, // White text on image
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      value,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white, // White text on image
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -139,10 +177,27 @@ class _TokenManagementPageState extends State<TokenManagementPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextField(
+        cursorColor: ColorPalette.primaryVariant,
+        style: TextStyle(color: Colors.white), // Text color inside the field
         controller: controller,
         decoration: InputDecoration(
           labelText: label,
-          border: OutlineInputBorder(),
+          labelStyle: TextStyle(
+            color: Colors.white.withOpacity(0.5),
+            fontWeight: FontWeight.bold,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12), // Rounded corners
+            borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1), // Border color
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1), // Focused border
+          ),
         ),
       ),
     );
