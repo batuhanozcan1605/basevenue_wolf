@@ -2,9 +2,10 @@ import 'dart:ui';
 
 class ColorPalette {
 
-  static const Color darkBackground = Color(0xFF101B33);
-  static const Color drawer = Color(0xFFA39C9C);
-  static const Color primary = Color(0xFFEF8A45);
-
+  static const Color background = Color(0xFF0A0C10);
+  static const Color secondaryBackground = Color(0xFF0F121A);
+  static const Color primary = Color(0xFF89D4D9);
+  static const Color secondary = Color(0xFF3C4455);
+  static const Color light = Color(0xFFF7F7F7);
 
 }

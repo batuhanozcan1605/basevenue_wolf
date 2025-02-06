@@ -5,6 +5,7 @@ import 'package:basevenue_wolf/basevenue_wolf/view/menu_pages/platform_wallet.da
 import 'package:basevenue_wolf/basevenue_wolf/view/menu_pages/products.dart';
 import 'package:basevenue_wolf/basevenue_wolf/view/widgets/chat_input_field.dart';
 import 'package:basevenue_wolf/basevenue_wolf/view/widgets/chat_messages_list.dart';
+import 'package:basevenue_wolf/basevenue_wolf/view/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart' as prov;
 import '../view_model/main_view_model.dart';
@@ -19,7 +20,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   // Top navigation bar widget
-  PreferredSizeWidget _buildTopNavBar(BuildContext context) {
+  /*PreferredSizeWidget _buildTopNavBar(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 1,
@@ -40,50 +41,130 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
     );
-  }
+  }*/
 
   // Left vertical menu widget
   Widget _buildSideMenu(BuildContext context) {
-    final viewModel = prov.Provider.of<MainViewModel>(context, listen: false);
+    return prov.Consumer<MainViewModel>(
+      builder: (BuildContext context, viewModel, Widget? child) {
+        return Container(
+          width: 240,
+          color: ColorPalette.secondaryBackground,
+          child: ListView(
+            children: [
+              SizedBox(height: 30,),
+              Image.asset(logoPath, height: 40,),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 23),
+                child: Divider(color: ColorPalette.light.withOpacity(0.5)),
+              ),
+              ListTile(
+                leading: Image.asset("assets/images/who_knows/who_knows_icon.png", height: 35,),
+                title: const Text("WHO KNOWS", style: TextStyle(color: Colors.white),),
+                onTap: () => viewModel.updateMenu(MenuItem.projectName),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 23),
+                child: Divider(color: ColorPalette.light.withOpacity(0.5)),
+              ),
+              ListTile(
+                contentPadding: EdgeInsets.zero, // Remove default padding
+                title: Row(
+                  children: [
+                    // Vertical Stripe
+                    Container(
+                      width: 4, // Adjust width as needed
+                      height: 30, // Match icon height
+                      color: viewModel.selectedMenu == MenuItem.platformWallet
+                          ? ColorPalette.primary
+                          : Colors.transparent, // Hide when not selected
+                    ),
+                    const SizedBox(width: 8), // Space between stripe and icon
+                    // Icon
+                    SvgIcon(
+                      assetPath: walletPath,
+                      color: viewModel.selectedMenu == MenuItem.platformWallet
+                          ? ColorPalette.primary
+                          : Colors.white,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 8), // Space between icon and text
+                    // Text
+                    Text(
+                      "Platform Wallet",
+                      style: TextStyle(
+                        color: viewModel.selectedMenu == MenuItem.platformWallet
+                            ? ColorPalette.primary
+                            : Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+                onTap: () => viewModel.updateMenu(MenuItem.platformWallet),
+              ),
 
-    return Container(
-      width: 200,
-      color: Colors.grey.shade200,
-      child: ListView(
-        children: [
-          ListTile(
-            leading: const Icon(Icons.construction),
-            title: const Text("WHO KNOWS"),
-            onTap: () => viewModel.updateMenu(MenuItem.projectName),
+              ListTile(
+                leading: SvgIcon(
+                  assetPath: tokenPath,
+                  color: viewModel.selectedMenu == MenuItem.tokenManagement ?
+                  ColorPalette.primary : Colors.white,
+                  size: 20,
+                ),
+                title: Text("Token Management",
+                  style: TextStyle(
+                    color: viewModel.selectedMenu == MenuItem.tokenManagement ?
+                    ColorPalette.primary : Colors.white,
+                  ),
+                ),
+                onTap: () => viewModel.updateMenu(MenuItem.tokenManagement),
+              ),
+              ListTile(
+                leading: SvgIcon(
+                  assetPath: productsPath,
+                  color: viewModel.selectedMenu == MenuItem.products ?
+                  ColorPalette.primary : Colors.white,
+                  size: 20,
+                ),
+                title: Text("Products", style: TextStyle(
+                  color: viewModel.selectedMenu == MenuItem.products ?
+                  ColorPalette.primary : Colors.white,
+                ),),
+                onTap: () => viewModel.updateMenu(MenuItem.products),
+              ),
+              ListTile(
+                leading: SvgIcon(
+                  assetPath: transactionsPath,
+                  color: viewModel.selectedMenu == MenuItem.transactions ?
+                  ColorPalette.primary : Colors.white,
+                  size: 20,
+                ),
+                title: Text("Transactions",
+                  style: TextStyle(
+                    color: viewModel.selectedMenu == MenuItem.transactions ?
+                    ColorPalette.primary : Colors.white,
+                  ),
+                ),
+                onTap: () => viewModel.updateMenu(MenuItem.transactions),
+              ),
+              ListTile(
+                leading: SvgIcon(
+                  assetPath: aiInsightsPath,
+                  color: viewModel.selectedMenu == MenuItem.aiInsights ?
+                  ColorPalette.primary : Colors.white,
+                  size: 20,
+                ),
+                title: Text("AI Insights",
+                  style: TextStyle(
+                    color: viewModel.selectedMenu == MenuItem.aiInsights ?
+                    ColorPalette.primary : Colors.white,
+                  ),
+                ),
+                onTap: () => viewModel.updateMenu(MenuItem.aiInsights),
+              ),
+            ],
           ),
-          const Divider(),
-          ListTile(
-            leading: const Icon(Icons.account_balance_wallet),
-            title: const Text("Platform Wallet"),
-            onTap: () => viewModel.updateMenu(MenuItem.platformWallet),
-          ),
-          ListTile(
-            leading: const Icon(Icons.token),
-            title: const Text("Token Management"),
-            onTap: () => viewModel.updateMenu(MenuItem.tokenManagement),
-          ),
-          ListTile(
-            leading: const Icon(Icons.shopping_bag),
-            title: const Text("Products"),
-            onTap: () => viewModel.updateMenu(MenuItem.products),
-          ),
-          ListTile(
-            leading: const Icon(Icons.insert_chart),
-            title: const Text("Transactions"),
-            onTap: () => viewModel.updateMenu(MenuItem.transactions),
-          ),
-          ListTile(
-            leading: const Icon(Icons.insights),
-            title: const Text("AI Insights"),
-            onTap: () => viewModel.updateMenu(MenuItem.aiInsights),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -113,7 +194,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildTopNavBar(context),
+      backgroundColor: ColorPalette.background,
       body: Row(
         children: [
           // Left vertical menu
