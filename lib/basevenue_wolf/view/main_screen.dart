@@ -5,6 +5,7 @@ import 'package:basevenue_wolf/basevenue_wolf/view/menu_pages/platform_wallet.da
 import 'package:basevenue_wolf/basevenue_wolf/view/menu_pages/products.dart';
 import 'package:basevenue_wolf/basevenue_wolf/view/widgets/chat_input_field.dart';
 import 'package:basevenue_wolf/basevenue_wolf/view/widgets/chat_messages_list.dart';
+import 'package:basevenue_wolf/basevenue_wolf/view/widgets/custom_menu_tile.dart';
 import 'package:basevenue_wolf/basevenue_wolf/view/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart' as prov;
@@ -19,29 +20,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  // Top navigation bar widget
-  /*PreferredSizeWidget _buildTopNavBar(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 1,
-      title: Row(
-        children: [
-          Image.asset(logoPath, height: 40),
-          const Spacer(),
-
-          TextButton.icon(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.circle,
-              color: Colors.green,
-              size: 12,
-            ),
-            label: const Text('Wallet', style: TextStyle(color: Colors.black)),
-          ),
-        ],
-      ),
-    );
-  }*/
 
   // Left vertical menu widget
   Widget _buildSideMenu(BuildContext context) {
@@ -67,102 +45,41 @@ class _MainScreenState extends State<MainScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 23),
                 child: Divider(color: ColorPalette.light.withOpacity(0.5)),
               ),
-              ListTile(
-                contentPadding: EdgeInsets.zero, // Remove default padding
-                title: Row(
-                  children: [
-                    // Vertical Stripe
-                    Container(
-                      width: 4, // Adjust width as needed
-                      height: 30, // Match icon height
-                      color: viewModel.selectedMenu == MenuItem.platformWallet
-                          ? ColorPalette.primary
-                          : Colors.transparent, // Hide when not selected
-                    ),
-                    const SizedBox(width: 8), // Space between stripe and icon
-                    // Icon
-                    SvgIcon(
-                      assetPath: walletPath,
-                      color: viewModel.selectedMenu == MenuItem.platformWallet
-                          ? ColorPalette.primary
-                          : Colors.white,
-                      size: 20,
-                    ),
-                    const SizedBox(width: 8), // Space between icon and text
-                    // Text
-                    Text(
-                      "Platform Wallet",
-                      style: TextStyle(
-                        color: viewModel.selectedMenu == MenuItem.platformWallet
-                            ? ColorPalette.primary
-                            : Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
+          Column(
+            children: [
+              CustomMenuTile(
+                title: "Platform Wallet",
+                assetPath: walletPath,
+                isSelected: viewModel.selectedMenu == MenuItem.platformWallet,
                 onTap: () => viewModel.updateMenu(MenuItem.platformWallet),
               ),
-
-              ListTile(
-                leading: SvgIcon(
-                  assetPath: tokenPath,
-                  color: viewModel.selectedMenu == MenuItem.tokenManagement ?
-                  ColorPalette.primary : Colors.white,
-                  size: 20,
-                ),
-                title: Text("Token Management",
-                  style: TextStyle(
-                    color: viewModel.selectedMenu == MenuItem.tokenManagement ?
-                    ColorPalette.primary : Colors.white,
-                  ),
-                ),
+              CustomMenuTile(
+                title: "Token Management",
+                assetPath: tokenPath,
+                isSelected: viewModel.selectedMenu == MenuItem.tokenManagement,
                 onTap: () => viewModel.updateMenu(MenuItem.tokenManagement),
               ),
-              ListTile(
-                leading: SvgIcon(
-                  assetPath: productsPath,
-                  color: viewModel.selectedMenu == MenuItem.products ?
-                  ColorPalette.primary : Colors.white,
-                  size: 20,
-                ),
-                title: Text("Products", style: TextStyle(
-                  color: viewModel.selectedMenu == MenuItem.products ?
-                  ColorPalette.primary : Colors.white,
-                ),),
+              CustomMenuTile(
+                title: "Products",
+                assetPath: productsPath,
+                isSelected: viewModel.selectedMenu == MenuItem.products,
                 onTap: () => viewModel.updateMenu(MenuItem.products),
               ),
-              ListTile(
-                leading: SvgIcon(
-                  assetPath: transactionsPath,
-                  color: viewModel.selectedMenu == MenuItem.transactions ?
-                  ColorPalette.primary : Colors.white,
-                  size: 20,
-                ),
-                title: Text("Transactions",
-                  style: TextStyle(
-                    color: viewModel.selectedMenu == MenuItem.transactions ?
-                    ColorPalette.primary : Colors.white,
-                  ),
-                ),
+              CustomMenuTile(
+                title: "Transactions",
+                assetPath: transactionsPath,
+                isSelected: viewModel.selectedMenu == MenuItem.transactions,
                 onTap: () => viewModel.updateMenu(MenuItem.transactions),
               ),
-              ListTile(
-                leading: SvgIcon(
-                  assetPath: aiInsightsPath,
-                  color: viewModel.selectedMenu == MenuItem.aiInsights ?
-                  ColorPalette.primary : Colors.white,
-                  size: 20,
-                ),
-                title: Text("AI Insights",
-                  style: TextStyle(
-                    color: viewModel.selectedMenu == MenuItem.aiInsights ?
-                    ColorPalette.primary : Colors.white,
-                  ),
-                ),
+              CustomMenuTile(
+                title: "AI Insights",
+                assetPath: aiInsightsPath,
+                isSelected: viewModel.selectedMenu == MenuItem.aiInsights,
                 onTap: () => viewModel.updateMenu(MenuItem.aiInsights),
               ),
             ],
           ),
+        ])
         );
       },
     );
