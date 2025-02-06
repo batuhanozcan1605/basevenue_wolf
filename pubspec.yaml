@@ -68,6 +68,7 @@ flutter:
   assets:
   - assets/images/who_knows/
   - assets/images/basevenue_wolf/
+  - assets/images/basevenue_wolf/buttons/
   - assets/images/basevenue_wolf/menu_icons/
   #   - images/a_dot_ham.jpeg
 

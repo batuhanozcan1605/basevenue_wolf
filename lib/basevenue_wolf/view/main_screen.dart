@@ -10,7 +10,7 @@ import 'package:basevenue_wolf/basevenue_wolf/view/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart' as prov;
 import '../view_model/main_view_model.dart';
-import 'menu_pages/token_management_page.dart';
+import 'menu_pages/token_management.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

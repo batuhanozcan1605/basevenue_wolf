@@ -1,6 +1,8 @@
 import 'dart:math';
+import 'package:basevenue_wolf/basevenue_wolf/color_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../consts.dart';
 import '../../utilities/propmts.dart';
 import '../../view_model/messages_view_model.dart';
 
@@ -76,60 +78,164 @@ class _ProductsPageState extends State<ProductsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Products Page")),
+      backgroundColor: ColorPalette.background,
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 46.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: handleCreateToken,
-                  child: Text("Create Game Product (Token)", style: TextStyle(color: Colors.white),),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: isCreatingToken ? Colors.blue : Colors.grey,
+            SizedBox(height: 88),
+            Text("Products Page",
+                style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 36),
+              softWrap: false, // Prevents automatic line wrapping
+              overflow: TextOverflow.fade,
+            ),
+            SizedBox(height: 32),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ElevatedButton(
+                    onPressed: handleCreateToken,
+                    child: Text("Create Game Product (Token)", style: TextStyle(color: Colors.white),),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: isCreatingToken ? ColorPalette.primaryVariant : Colors.transparent, // Button background
+                      side: BorderSide(color: ColorPalette.primaryVariant, width: 1), // Border color & width
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10), // Rounded corners
+                      ),
+                    ),
                   ),
-                ),
-                SizedBox(width: 16),
-                ElevatedButton(
-                  onPressed: handleCreateNFT,
-                  child: Text("Create Game Item (NFT)",  style: TextStyle(color: Colors.white),),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: !isCreatingToken ? Colors.blue : Colors.grey,
+                  SizedBox(width: 16),
+                  ElevatedButton(
+                    onPressed: handleCreateNFT,
+                    child: Text("Create Game Item (NFT)",  style: TextStyle(color: Colors.white),),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: !isCreatingToken ? ColorPalette.primaryVariant : Colors.transparent, // Button background
+                      side: BorderSide(color: ColorPalette.primaryVariant, width: 1), // Border color & width
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10), // Rounded corners
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             SizedBox(height: 20),
             Text(
               isCreatingToken ? "Create Game Product (Token)" : "Create Game Item (NFT)",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              softWrap: false, // Prevents automatic line wrapping
+              overflow: TextOverflow.fade,
             ),
             SizedBox(height: 10),
             TextField(
+              cursorColor: ColorPalette.primaryVariant,
               controller: nameController,
-              decoration: InputDecoration(labelText: "Name"),
+              style: TextStyle(color: Colors.white), // Text color inside the field
+              decoration: InputDecoration(
+                labelText: "Name",
+                labelStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12), // Rounded corners
+                  borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1), // Border color
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1), // Focused border
+                ),
+              ),
             ),
+            SizedBox(height: 12), // Spacing between fields
             TextField(
+              cursorColor: ColorPalette.primaryVariant,
               controller: descriptionController,
-              decoration: InputDecoration(labelText: "Description"),
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                labelText: "Description",
+                labelStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1),
+                ),
+              ),
             ),
+            SizedBox(height: 12),
             TextField(
+              cursorColor: ColorPalette.primaryVariant,
               controller: functionalityController,
-              decoration: InputDecoration(labelText: "Functionality in the project"),
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                labelText: "Functionality in the project",
+                labelStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1),
+                ),
+              ),
             ),
+            SizedBox(height: 12),
             TextField(
+              cursorColor: ColorPalette.primaryVariant,
               controller: priceRatioController,
-              decoration: InputDecoration(labelText: "Price Ratio (to main token)"),
+              style: TextStyle(color: Colors.white),
               keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: "Price Ratio (to main token)",
+                labelStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1),
+                ),
+              ),
             ),
+
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => handleSubmit(context),
-              child: Text("Submit To Assistant"),
-            ),
+            GestureDetector(
+                onTap: () => handleSubmit(context),
+                child: Image.asset(submitButtonPath, height: 50)),
           ],
         ),
       ),
