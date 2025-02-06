@@ -2,6 +2,7 @@
 import 'package:basevenue_wolf/basevenue_wolf/color_palette.dart';
 import 'package:basevenue_wolf/basevenue_wolf/consts.dart';
 import 'package:basevenue_wolf/basevenue_wolf/view/menu_pages/platform_wallet.dart';
+import 'package:basevenue_wolf/basevenue_wolf/view/menu_pages/products.dart';
 import 'package:basevenue_wolf/basevenue_wolf/view/widgets/chat_input_field.dart';
 import 'package:basevenue_wolf/basevenue_wolf/view/widgets/chat_messages_list.dart';
 import 'package:flutter/material.dart';
@@ -26,18 +27,7 @@ class _MainScreenState extends State<MainScreen> {
         children: [
           Image.asset(logoPath, height: 40),
           const Spacer(),
-          TextButton(
-            onPressed: () {},
-            child: const Text('Overview', style: TextStyle(color: Colors.black)),
-          ),
-          TextButton(
-            onPressed: () {},
-            child: const Text('Charts', style: TextStyle(color: Colors.black)),
-          ),
-          TextButton(
-            onPressed: () {},
-            child: const Text('Customers', style: TextStyle(color: Colors.black)),
-          ),
+
           TextButton.icon(
             onPressed: () {},
             icon: const Icon(
@@ -109,7 +99,7 @@ class _MainScreenState extends State<MainScreen> {
           case MenuItem.tokenManagement:
             return const TokenManagementPage();
           case MenuItem.products:
-            return const Center(child: Text("Products Content"));
+            return const ProductsPage();
           case MenuItem.transactions:
             return const Center(child: Text("Transactions Content"));
           case MenuItem.aiInsights:
