@@ -2,6 +2,8 @@ import 'package:basevenue_wolf/basevenue_wolf/view_model/messages_view_model.dar
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../utilities/propmts.dart';
+
 class TokenManagementPage extends StatefulWidget {
   const TokenManagementPage({super.key});
 
@@ -52,14 +54,32 @@ class _TokenManagementPageState extends State<TokenManagementPage> {
           // Expanded Form
           if (_isFormExpanded) Expanded(child: _buildTokenCreationForm()),
 
+          SizedBox(height: 8),
           // Submit Token Button
           if (_isFormExpanded) Align(
             alignment: Alignment.bottomLeft,
             child: ElevatedButton(
               onPressed: () {
-                context.read<MessagesViewModel>().setMessageText("Hello AI, what is Web3?");
+
+                String projectName = _projectNameController.text.trim();
+                String description = _descriptionController.text.trim();
+                String extras = _extrasController.text.trim();
+                String tokenName = _tokenNameController.text.trim();
+                String tokenSymbol = _tokenSymbolController.text.trim();
+                String tokenFunctionality = _tokenFunctionalityController.text.trim();
+
+                String aiPrompt = Prompts.createProjectTokenPrompt(
+                  projectName: projectName,
+                  description: description,
+                  extras: extras,
+                  tokenName: tokenName,
+                  tokenSymbol: tokenSymbol,
+                  tokenFunctionality: tokenFunctionality,
+                );
+
+                context.read<MessagesViewModel>().setMessageText(aiPrompt);
               },
-              child: Text("Submit Token"),
+              child: Text("Submit Token to Assistant"),
             ),
           ),
         ],

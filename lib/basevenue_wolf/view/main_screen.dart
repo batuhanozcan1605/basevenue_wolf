@@ -145,7 +145,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget _buildChatbot() {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
-      width:  350, // Toggle width
+      width:  450, // Toggle width
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: const BorderRadius.only(
