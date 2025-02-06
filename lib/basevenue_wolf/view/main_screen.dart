@@ -113,20 +113,24 @@ class MainScreen extends StatelessWidget {
 
   // Bottom welcome panel widget
   Widget _buildBottomPanel() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      color: Colors.grey.shade100,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: const [
-          Text(
-            "Welcome back, 0xAb...1234!",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    return prov.Consumer<MainViewModel>(
+      builder: (BuildContext context, MainViewModel value, Widget? child) {
+        return Container(
+          padding: const EdgeInsets.all(16),
+          color: Colors.grey.shade100,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Welcome back, ${value.walletAddress ?? "0xAb...1234!"}",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 4),
+              Text("Your AI agent is optimizing tokenomics!"),
+            ],
           ),
-          SizedBox(height: 4),
-          Text("Your AI agent is optimizing tokenomics!"),
-        ],
-      ),
+        );
+      },
     );
   }
 

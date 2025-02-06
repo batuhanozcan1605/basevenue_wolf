@@ -27,7 +27,7 @@ class BasevenueWolf extends StatelessWidget {
               '/home': (context) => MainScreen(),
             },
             debugShowCheckedModeBanner: false,
-            home: OnboardingScreen(),
+            home: MainScreen(),
             theme: ThemeData(
               fontFamily: 'Hellix',
             )

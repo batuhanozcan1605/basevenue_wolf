@@ -27,7 +27,7 @@ class _PlatformWalletPageState extends State<PlatformWalletPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Wallet Overview
-          const Text("📂 Platform Wallet", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          const Text("Platform Wallet", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
           const SizedBox(height: 20),
 
           // Balance Cards
