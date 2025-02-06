@@ -1,4 +1,6 @@
+import 'package:basevenue_wolf/basevenue_wolf/view_model/messages_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TokenManagementPage extends StatefulWidget {
   const TokenManagementPage({super.key});
@@ -55,7 +57,7 @@ class _TokenManagementPageState extends State<TokenManagementPage> {
             alignment: Alignment.bottomLeft,
             child: ElevatedButton(
               onPressed: () {
-
+                context.read<MessagesViewModel>().setMessageText("Hello AI, what is Web3?");
               },
               child: Text("Submit Token"),
             ),

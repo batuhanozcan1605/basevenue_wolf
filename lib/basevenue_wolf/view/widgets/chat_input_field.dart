@@ -2,48 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../view_model/messages_view_model.dart';
 
-class ChatInputField extends StatefulWidget {
-  @override
-  State<ChatInputField> createState() => _ChatInputFieldState();
-}
+class ChatInputField extends StatelessWidget {
+  void _sendMessage(BuildContext context) {
+    final viewModel = context.read<MessagesViewModel>();
+    final messageText = viewModel.messageController.text.trim();
 
-class _ChatInputFieldState extends State<ChatInputField> {
-  final TextEditingController _controller = TextEditingController();
-
-  void _sendMessage() {
-    if (_controller.text.trim().isNotEmpty) {
-      final messageText = _controller.text.trim();
-      _controller.clear();
-
-      // Add user message
-      context.read<MessagesViewModel>().addMessage("user", messageText);
+    if (messageText.isNotEmpty) {
+      viewModel.addMessage("user", messageText);
 
       // Simulate AI Response
       Future.delayed(const Duration(seconds: 1), () {
-        context.read<MessagesViewModel>().addMessage("ai", "Great question! Let me analyze it...");
+        viewModel.addMessage("ai", "Great question! Let me analyze it...");
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<MessagesViewModel>();
+
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end, // Aligns input field properly
         children: [
-          // Input Field
+          // Input Field (Auto-Expands)
           Expanded(
-            child: TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                hintText: "Ask AI something...",
-                filled: true,
-                fillColor: Colors.grey[200],
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide.none,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxHeight: 150, // Prevents excessive expansion
+              ),
+              child: TextField(
+                controller: viewModel.messageController,
+                minLines: 1, // Starts with a single line
+                maxLines: null, // Expands dynamically
+                keyboardType: TextInputType.multiline,
+                decoration: InputDecoration(
+                  hintText: "Ask AI something...",
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 ),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               ),
             ),
           ),
@@ -52,7 +55,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
           // Send Button
           IconButton(
             icon: const Icon(Icons.send, color: Colors.blueAccent),
-            onPressed: _sendMessage,
+            onPressed: () => _sendMessage(context),
           ),
         ],
       ),
