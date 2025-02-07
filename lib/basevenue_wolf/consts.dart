@@ -1,6 +1,7 @@
 //Image Paths
 const String logoPath = "assets/images/basevenue_wolf/logo.png";
 const String iconPath = "assets/images/basevenue_wolf/icon.png";
+const String wolfMoonImagePath = "assets/images/basevenue_wolf/wolf.png";
 //SVG ICONS
 const String walletPath = "assets/images/basevenue_wolf/menu_icons/wallet.svg";
 const String tokenPath = "assets/images/basevenue_wolf/menu_icons/token.svg";
