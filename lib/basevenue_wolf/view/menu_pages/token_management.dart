@@ -40,9 +40,9 @@ class _TokenManagementPageState extends State<TokenManagementPage> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    _buildInfoCard("Total Supply", "1,000,000"),
+                    _buildInfoCard("Total Supply", "1,000,000 TOKEN"),
                     SizedBox(width: 16),
-                    _buildInfoCard("Circulating Supply", "750,000"),
+                    _buildInfoCard("Circulating Supply", "750,000 TOKEN"),
                   ],
                 ),
               ),

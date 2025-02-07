@@ -3,6 +3,7 @@ import 'package:basevenue_wolf/basevenue_wolf/color_palette.dart';
 import 'package:basevenue_wolf/basevenue_wolf/consts.dart';
 import 'package:basevenue_wolf/basevenue_wolf/view/menu_pages/platform_wallet.dart';
 import 'package:basevenue_wolf/basevenue_wolf/view/menu_pages/products.dart';
+import 'package:basevenue_wolf/basevenue_wolf/view/menu_pages/project_details.dart';
 import 'package:basevenue_wolf/basevenue_wolf/view/widgets/chat_input_field.dart';
 import 'package:basevenue_wolf/basevenue_wolf/view/widgets/chat_messages_list.dart';
 import 'package:basevenue_wolf/basevenue_wolf/view/widgets/custom_menu_tile.dart';
@@ -91,7 +92,7 @@ class _MainScreenState extends State<MainScreen> {
       builder: (context, viewModel, child) {
         switch (viewModel.selectedMenu) {
           case MenuItem.projectName:
-            return const Center(child: Text("Project Details Content"));
+            return const ProjectDetailsPage();
           case MenuItem.platformWallet:
             return const PlatformWalletPage();
           case MenuItem.tokenManagement:

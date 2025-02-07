@@ -184,7 +184,7 @@ class _ProductsPageState extends State<ProductsPage> {
             TextField(
               cursorColor: ColorPalette.primaryVariant,
               controller: functionalityController,
-              style: TextStyle(color: Colors.white.withOpacity(0.5),),
+              style: TextStyle(color: Colors.white,),
               decoration: InputDecoration(
                 labelText: "Functionality in the project",
                 labelStyle: TextStyle(
