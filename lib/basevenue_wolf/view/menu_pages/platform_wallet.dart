@@ -27,7 +27,7 @@ class _PlatformWalletPageState extends State<PlatformWalletPage> {
     return Scaffold(
       backgroundColor: ColorPalette.background,
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(left: 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

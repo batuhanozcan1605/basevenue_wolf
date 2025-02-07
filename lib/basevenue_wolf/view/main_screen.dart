@@ -135,7 +135,7 @@ class _MainScreenState extends State<MainScreen> {
       duration: const Duration(milliseconds: 300),
       width:  450, // Toggle width
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorPalette.secondaryBackground,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(16),
           bottomLeft: Radius.circular(16),
@@ -154,13 +154,15 @@ class _MainScreenState extends State<MainScreen> {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: const BoxDecoration(
-              color: Colors.blueAccent,
+              color: ColorPalette.secondary,
               borderRadius: BorderRadius.only(topLeft: Radius.circular(16)),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Text("🤖 AI Assistant", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                SvgIcon(assetPath: botPath, size: 14, color: Colors.white,),
+                SizedBox(width: 8),
+                const Text("AI Assistant", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
               ],
             ),
           ),

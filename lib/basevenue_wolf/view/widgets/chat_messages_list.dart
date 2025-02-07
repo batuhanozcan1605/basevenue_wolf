@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../color_palette.dart';
 import '../../view_model/messages_view_model.dart';
 
 class ChatMessagesList extends StatelessWidget {
@@ -22,12 +23,12 @@ class ChatMessagesList extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 4),
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: isUser ? Colors.blueAccent : Colors.grey[300],
+              color: isUser ? ColorPalette.primaryVariant : ColorPalette.secondary,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
               msg["text"]!,
-              style: TextStyle(color: isUser ? Colors.white : Colors.black),
+              style: TextStyle(color: Colors.white),
             ),
           ),
         );
