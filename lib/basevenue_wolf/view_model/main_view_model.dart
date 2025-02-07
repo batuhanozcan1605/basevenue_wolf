@@ -1,3 +1,4 @@
+import 'package:basevenue_wolf/basevenue_wolf/color_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 
@@ -38,7 +39,7 @@ class MainViewModel extends ChangeNotifier {
           SnackBar(
             content: Text("Connected Wallet: $walletAddress"),
             duration: const Duration(seconds: 3),
-            backgroundColor: Colors.green,
+            backgroundColor: ColorPalette.primary,
           ),
         );
 

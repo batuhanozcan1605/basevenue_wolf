@@ -8,7 +8,7 @@ class MessagesViewModel extends ChangeNotifier {
   ];
 
   final TextEditingController messageController = TextEditingController();
-  final String apiUrl = "https://cors-anywhere.herokuapp.com/https://basevenue-wolf.vercel.app/api/chat"; // Replace with actual URL
+  final String apiUrl = "https://basevenue-wolf.vercel.app/api/chat"; // Replace with actual URL
  // final String apiKey = "YOUR_API_KEY"; // Set this in your environment (keep it secure)
 
   MessagesViewModel() {
