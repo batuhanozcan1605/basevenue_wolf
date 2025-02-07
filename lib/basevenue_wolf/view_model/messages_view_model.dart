@@ -8,7 +8,7 @@ class MessagesViewModel extends ChangeNotifier {
   ];
 
   final TextEditingController messageController = TextEditingController();
-  final String apiUrl = "https://your-api-endpoint.com/api/chat"; // Replace with actual URL
+  final String apiUrl = "https://basevenue-wolf.vercel.app/api/chat"; // Replace with actual URL
   final String apiKey = "YOUR_API_KEY"; // Set this in your environment (keep it secure)
 
 
@@ -48,7 +48,6 @@ class MessagesViewModel extends ChangeNotifier {
       final request = http.Request("POST", Uri.parse(apiUrl))
         ..headers.addAll({
           "Content-Type": "application/json",
-          "Authorization": "Bearer $apiKey",
         })
         ..body = requestBody;
 

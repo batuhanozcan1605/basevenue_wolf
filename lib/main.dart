@@ -30,7 +30,7 @@ class BasevenueWolf extends StatelessWidget {
               '/home': (context) => MainScreen(),
             },
             debugShowCheckedModeBanner: false,
-            home: LandingPage(),
+            home: MainScreen(),
             theme: ThemeData(
               textTheme: TextTheme(
                 bodyLarge: TextStyle(color: Colors.white),
