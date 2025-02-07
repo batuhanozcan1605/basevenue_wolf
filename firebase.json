@@ -1,0 +1,1 @@
+{"hosting":{"public":"build/web","ignore":["firebase.json","**/.*","**/node_modules/**"]},"flutter":{"platforms":{"dart":{"lib/firebase_options.dart":{"projectId":"basevenuewolf","configurations":{"web":"1:645745872339:web:e712085e3eaba839b97326"}}}}}}
