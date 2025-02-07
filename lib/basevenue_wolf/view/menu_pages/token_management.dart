@@ -1,5 +1,6 @@
 import 'package:basevenue_wolf/basevenue_wolf/view_model/messages_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../color_palette.dart';
 import '../../consts.dart';
@@ -33,12 +34,18 @@ class _TokenManagementPageState extends State<TokenManagementPage> {
           children: [
             SizedBox(height: 80,),
             // Supply Information Cards
-            Row(
-              children: [
-                _buildInfoCard("Total Supply", "1,000,000"),
-                SizedBox(width: 16),
-                _buildInfoCard("Circulating Supply", "750,000"),
-              ],
+            SizedBox(
+              height: 150,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    _buildInfoCard("Total Supply", "1,000,000"),
+                    SizedBox(width: 16),
+                    _buildInfoCard("Circulating Supply", "750,000"),
+                  ],
+                ),
+              ),
             ),
 
             SizedBox(height: 24),
@@ -100,53 +107,44 @@ class _TokenManagementPageState extends State<TokenManagementPage> {
   }
 
   Widget _buildInfoCard(String title, String value) {
-    return Expanded(
-      child: Card(
-        color: Colors.transparent,
-        elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), // Optional rounded corners
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Stack(
-           
-            children: [
-              // Background Image
-              Positioned.fill(
-                child: Image.asset(
-                  gradientCardPath,
-                  fit: BoxFit.fill, // Ensures the image covers the whole card
+    return Stack(
+      children: [
+        // Background Image
+        Image.asset(
+          gradientCardPath,
+          height: 110.h, // Ensures it fills the available space
+        ),
+
+        // Text Overlay
+        Positioned.fill(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center, // Centers text vertically
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white, // Ensures readability
+                  ),
                 ),
-              ),
-              // Text Content
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white, // White text on image
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      value,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white, // White text on image
-                      ),
-                    ),
-                  ],
+                SizedBox(height: 8),
+                Text(
+                  value,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 
