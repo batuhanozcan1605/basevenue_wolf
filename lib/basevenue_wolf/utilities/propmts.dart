@@ -8,16 +8,16 @@ class Prompts {
     required String tokenFunctionality,
   }) {
     return """
-    I am creating a token for my project: **$projectName**.
+    I am creating a token for my project: $projectName.
     
-    **Project Description:** $description
+    Project Description: $description
     
-    **Additional Info:** $extras
+    Additional Info: $extras
     
-    **Token Details:**
-    - **Token Name:** $tokenName
-    - **Token Symbol:** $tokenSymbol
-    - **Functionality:** $tokenFunctionality
+    Token Details:
+    - Token Name: $tokenName
+    - Token Symbol: $tokenSymbol
+    - Functionality: $tokenFunctionality
     
     Please generate tokenomics and suggestions for the best way to use this token in my project.
     """;

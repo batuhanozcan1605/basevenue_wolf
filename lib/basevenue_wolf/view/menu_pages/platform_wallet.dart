@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../color_palette.dart';
+import '../../consts.dart';
 
 class PlatformWalletPage extends StatefulWidget {
   const PlatformWalletPage({super.key});
@@ -21,88 +24,146 @@ class _PlatformWalletPageState extends State<PlatformWalletPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Wallet Overview
-          const Text("Platform Wallet", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 20),
+    return Scaffold(
+      backgroundColor: ColorPalette.background,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 80),
 
-          // Balance Cards
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              buildBalanceCard("🔹 Wallet Balance", "$tokenBalance TOKEN"),
-              buildBalanceCard("🔹 ETH Balance", "$ethBalance ETH"),
-              buildBalanceCard("🔹 Treasury Reserve", "\$$treasuryReserve"),
-            ],
-          ),
-
-          const SizedBox(height: 30),
-
-          // Bridge & Transfer Section
-          const Text("🔀 Bridge & Transfer Funds", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              ElevatedButton.icon(
-                onPressed: () {}, // TODO: Add bridge function
-                icon: const Icon(Icons.link),
-                label: const Text("Bridge Tokens"),
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
-              ),
-              const SizedBox(width: 20),
-              ElevatedButton.icon(
-                onPressed: () {}, // TODO: Add transfer function
-                icon: const Icon(Icons.send),
-                label: const Text("Send Payment"),
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-              ),
-            ],
-          ),
-
-          const SizedBox(height: 30),
-
-          // Transaction History
-          const Text("📊 Transaction History", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 10),
-          Expanded(
-            child: ListView.builder(
-              itemCount: transactions.length,
-              itemBuilder: (context, index) {
-                final tx = transactions[index];
-                return Card(
-                  child: ListTile(
-                    title: Text(tx["amount"]!, style: const TextStyle(fontWeight: FontWeight.bold)),
-                    subtitle: Text("From: ${tx["from"]}"),
-                    trailing: Text(tx["status"]!, style: TextStyle(color: tx["status"] == "✅ Success" ? Colors.green : Colors.orange)),
-                  ),
-                );
-              },
+            // Wallet Overview Title
+            const Text(
+              "Platform Wallet",
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
             ),
-          ),
-        ],
+
+            const SizedBox(height: 24),
+
+            // Balance Cards
+            SizedBox(
+              height: 150,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    _buildInfoCard("Wallet Balance", "$tokenBalance TOKEN"),
+                    SizedBox(width: 16),
+                    _buildInfoCard("ETH Balance", "$ethBalance ETH"),
+                    SizedBox(width: 16),
+                    _buildInfoCard("Treasury Reserve", "\$$treasuryReserve"),
+                  ],
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            // Bridge & Transfer Section
+            const Text(
+              "Bridge & Transfer Funds",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                _buildActionButton("Bridge Tokens", Icons.link, ColorPalette.primaryVariant),
+                const SizedBox(width: 16),
+                _buildActionButton("Send Payment", Icons.send, Colors.green),
+              ],
+            ),
+
+            const SizedBox(height: 30),
+
+            // Transaction History
+            const Text(
+              "Transaction History",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+            const SizedBox(height: 16),
+            Expanded(
+              child: ListView.builder(
+                itemCount: transactions.length,
+                itemBuilder: (context, index) {
+                  final tx = transactions[index];
+                  return _buildTransactionCard(tx["amount"]!, tx["from"]!, tx["status"]!);
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  // Widget for balance display
-  Widget buildBalanceCard(String title, String value) {
-    return Expanded(
-      child: Card(
-        elevation: 2,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              Text(value, style: const TextStyle(fontSize: 20, color: Colors.blueAccent)),
-            ],
+  // Widget for balance display (matching card style)
+  Widget _buildInfoCard(String title, String value) {
+    return Stack(
+      children: [
+        Image.asset(
+          gradientCardPath,
+          height: 110.h,
+        ),
+        Positioned.fill(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  value,
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
+                ),
+              ],
+            ),
           ),
         ),
+      ],
+    );
+  }
+
+  // Action Buttons (Bridge & Send)
+  Widget _buildActionButton(String text, IconData icon, Color color) {
+    return ElevatedButton.icon(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: color,
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+      onPressed: () {},
+      icon: Icon(icon, color: Colors.white),
+      label: Text(text, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+    );
+  }
+
+  // Transaction Card
+  Widget _buildTransactionCard(String amount, String from, String status) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: ColorPalette.secondaryBackground,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(amount, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+          const SizedBox(height: 4),
+          Text("From: $from", style: TextStyle(color: Colors.white.withOpacity(0.7))),
+          const SizedBox(height: 4),
+          Text(
+            status,
+            style: TextStyle(color: status == "✅ Success" ? Colors.green : Colors.orange, fontWeight: FontWeight.bold),
+          ),
+        ],
       ),
     );
   }

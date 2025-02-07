@@ -112,7 +112,7 @@ class _TokenManagementPageState extends State<TokenManagementPage> {
         // Background Image
         Image.asset(
           gradientCardPath,
-          height: 110.h, // Ensures it fills the available space
+          height: 120.h, // Ensures it fills the available space
         ),
 
         // Text Overlay

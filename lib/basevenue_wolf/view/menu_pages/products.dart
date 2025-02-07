@@ -42,7 +42,7 @@ class _ProductsPageState extends State<ProductsPage> {
     String priceRatio = priceRatioController.text.trim().isEmpty ? "1:1" : priceRatioController.text.trim();
 
     // Validate name before generating symbol
-    String tokenSymbol = name.isNotEmpty ? name.toUpperCase().substring(0, min(3, name.length)) : "TKN";
+    String tokenSymbol = name.isNotEmpty ? name.toUpperCase() : "TKN";
 
     // Generate AI prompt
     String prompt;
