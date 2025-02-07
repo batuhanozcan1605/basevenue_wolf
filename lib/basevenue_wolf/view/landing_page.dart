@@ -69,31 +69,44 @@ class LandingPage extends StatelessWidget {
                 const SizedBox(height: 24),
 
                 // Wallet Connection Logic
-                if (viewModel.isConnected) ...[
-                  Row(
-                    children: [
-                      Icon(Icons.check_circle, color: Colors.greenAccent),
-                      const SizedBox(width: 8),
-                      Text(
-                        "Connected: ${viewModel.walletAddress!.substring(0, 6)}...${viewModel.walletAddress!.substring(viewModel.walletAddress!.length - 4)}",
-                        style: const TextStyle(color: Colors.greenAccent, fontSize: 16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: viewModel.isMetaMaskAvailable
+                          ? () async {
+                        viewModel.connectWallet(context);
+                      }
+                          : null, // Disable tap if MetaMask is not available
+                      child: Image.asset(walletButtonPath, height: 54),
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    // Show warning if no wallet is found
+                    if (!viewModel.isMetaMaskAvailable)
+                      const Text(
+                        "We could not find any wallet in your browser.",
+                        style: TextStyle(color: Colors.redAccent, fontSize: 14),
+                      ),
+
+                    // Show connected wallet address if connected
+                    if (viewModel.isConnected) ...[
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          const Icon(Icons.check_circle, color: Colors.greenAccent),
+                          const SizedBox(width: 8),
+                          Text(
+                            "Connected: ${viewModel.walletAddress!.substring(0, 6)}...${viewModel.walletAddress!.substring(viewModel.walletAddress!.length - 4)}",
+                            style: const TextStyle(color: Colors.greenAccent, fontSize: 16),
+                          ),
+                        ],
                       ),
                     ],
-                  ),
-                  const SizedBox(height: 10),
-                 /* TextButton(
-                    onPressed: viewModel.disconnectWallet,
-                    child: const Text("Disconnect", style: TextStyle(color: Colors.redAccent)),
-                  ),*/
-                ] else if (viewModel.isMetaMaskAvailable) ...[
-                  GestureDetector(
-                    onTap: () async {
-                      viewModel.connectWallet(context);
-                    },
+                  ],
+                ),
 
-                    child: Image.asset(walletButtonPath, height: 54,)
-                  ),
-                ],
 
                 const Spacer(flex: 3),
               ],
