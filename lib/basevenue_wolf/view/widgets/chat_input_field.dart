@@ -4,19 +4,13 @@ import '../../color_palette.dart';
 import '../../view_model/messages_view_model.dart';
 
 class ChatInputField extends StatelessWidget {
+  const ChatInputField({super.key});
+
   void _sendMessage(BuildContext context) {
     final viewModel = context.read<MessagesViewModel>();
-    final messageText = viewModel.messageController.text.trim();
-
-    if (messageText.isNotEmpty) {
-      viewModel.addMessage("user", messageText);
-
-      // Simulate AI Response
-      Future.delayed(const Duration(seconds: 1), () {
-        viewModel.addMessage("ai", "Great question! Let me analyze it...");
-      });
-    }
+    viewModel.sendMessage(); // Now using the streaming function
   }
+
 
   @override
   Widget build(BuildContext context) {

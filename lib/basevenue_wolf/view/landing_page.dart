@@ -60,8 +60,9 @@ class LandingPage extends StatelessWidget {
 
                 // Subtitle
                 SizedBox(
+                  width: MediaQuery.of(context).size.width*7/16,
                   child: Text(
-                    "Lorem ipsum dolor sit amet consectetur. Donec pretium dui proin massa rhoncus eget. Viverra at feugiat ac tristique.",
+                    "BasevenueWolf is the blockchain and AI-powered alternative to RevenueCat, bringing seamless product management and revenue analytics to Web3 Applications.",
                     style: TextStyle(fontSize: 16, color: Colors.white.withOpacity(0.8)),
                   ),
                 ),
