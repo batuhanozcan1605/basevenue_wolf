@@ -4,13 +4,12 @@ import 'package:http/http.dart' as http;
 
 class MessagesViewModel extends ChangeNotifier {
   final List<Map<String, String>> messages = [
-    {"role": "ai", "text": "Hello! How can I assist you today?"},
+
   ];
 
   final TextEditingController messageController = TextEditingController();
-  final String apiUrl = "https://basevenue-wolf.vercel.app/api/chat"; // Replace with actual URL
-  final String apiKey = "YOUR_API_KEY"; // Set this in your environment (keep it secure)
-
+  final String apiUrl = "https://cors-anywhere.herokuapp.com/https://basevenue-wolf.vercel.app/api/chat"; // Replace with actual URL
+ // final String apiKey = "YOUR_API_KEY"; // Set this in your environment (keep it secure)
 
   MessagesViewModel() {
     messageController.addListener(_onTextChanged);
@@ -62,7 +61,18 @@ class MessagesViewModel extends ChangeNotifier {
           notifyListeners();
         }
 
-        addMessage("ai", buffer.toString().trim());
+        // **Remove "data: " prefix before parsing JSON**
+        String cleanResponse = buffer.toString().trim();
+        if (cleanResponse.startsWith("data: ")) {
+          cleanResponse = cleanResponse.substring(6); // Remove "data: "
+        }
+
+        // **Parse JSON properly**
+        final responseData = jsonDecode(cleanResponse);
+        final String aiResponse = responseData["content"] ?? "No response received.";
+
+        print("AI Response: $aiResponse");
+        addMessage("ai", aiResponse);
       } else {
         addMessage("ai", "Error: Failed to connect to AI.");
       }
@@ -70,6 +80,8 @@ class MessagesViewModel extends ChangeNotifier {
       addMessage("ai", "Error: $e");
     }
   }
+
+
 
 
   @override
