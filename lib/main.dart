@@ -34,7 +34,7 @@ class BasevenueWolf extends StatelessWidget {
         designSize: Size(1440, 900), // Logical resolution for MacBook M1 (13-inch)
         minTextAdapt: true,
         child: MaterialApp(
-          home: LandingPage(),
+          home: MainScreen(),
             routes: {
               '/home': (context) => MainScreen(),
             },

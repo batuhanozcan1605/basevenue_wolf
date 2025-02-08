@@ -36,13 +36,13 @@ class MessagesViewModel extends ChangeNotifier {
   Future<void> sendMessage() async {
     final userMessage = messageController.text.trim();
     if (userMessage.isEmpty) return;
-
+    print("send message");
     addMessage("user", userMessage);
 
     final requestBody = jsonEncode({
       "messages": messages.map((msg) => {"role": msg["role"], "content": msg["text"]}).toList(),
     });
-
+    print("Error requestBody: $requestBody");
     try {
       final request = http.Request("POST", Uri.parse(apiUrl))
         ..headers.addAll({
@@ -51,33 +51,50 @@ class MessagesViewModel extends ChangeNotifier {
         ..body = requestBody;
 
       final response = await http.Client().send(request);
-
+      print("response $response");
       if (response.statusCode == 200) {
+        // Read the response stream into a buffer.
         final stream = response.stream.transform(utf8.decoder);
-
         StringBuffer buffer = StringBuffer();
         await for (String chunk in stream) {
           buffer.write(chunk);
           notifyListeners();
         }
 
-        // **Remove "data: " prefix before parsing JSON**
-        String cleanResponse = buffer.toString().trim();
-        if (cleanResponse.startsWith("data: ")) {
-          cleanResponse = cleanResponse.substring(6); // Remove "data: "
+        // Get the raw response string.
+        String rawResponse = buffer.toString().trim();
+
+        // Remove the "data:" prefix if present.
+        if (rawResponse.startsWith("data: ")) {
+          rawResponse = rawResponse.substring(6).trim();
         }
 
-        // **Parse JSON properly**
-        final responseData = jsonDecode(cleanResponse);
+        List<String> lines = rawResponse.split('\n');
+        // Pick the first line that appears to be valid JSON (starts with '{').
+        String jsonLine = lines.firstWhere(
+              (line) => line.trim().startsWith('{'),
+          orElse: () => rawResponse,
+        );
+
+        // Optionally, trim extra characters after the last '}'.
+        int lastBraceIndex = jsonLine.lastIndexOf('}');
+        if (lastBraceIndex != -1) {
+          jsonLine = jsonLine.substring(0, lastBraceIndex + 1);
+        }
+
+        // Now parse the cleaned JSON.
+        final responseData = jsonDecode(jsonLine);
         final String aiResponse = responseData["content"] ?? "No response received.";
 
         print("AI Response: $aiResponse");
         addMessage("ai", aiResponse);
+
       } else {
         addMessage("ai", "Error: Failed to connect to AI.");
       }
     } catch (e) {
       addMessage("ai", "Error: $e");
+      print("Error: $e");
     }
   }
 
