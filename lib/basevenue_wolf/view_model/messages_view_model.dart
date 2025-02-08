@@ -61,29 +61,28 @@ class MessagesViewModel extends ChangeNotifier {
           notifyListeners();
         }
 
-        // Get the raw response string.
         String rawResponse = buffer.toString().trim();
 
-        // Remove the "data:" prefix if present.
-        if (rawResponse.startsWith("data: ")) {
-          rawResponse = rawResponse.substring(6).trim();
+        // Remove any "data:" prefixes
+        rawResponse = rawResponse.replaceAll(RegExp(r"data:\s*"), "").trim();
+
+        // Option: Try to find the first complete JSON object by ensuring braces match.
+        int openBraces = 0;
+        int endIndex = -1;
+        for (int i = 0; i < rawResponse.length; i++) {
+          if (rawResponse[i] == '{') openBraces++;
+          if (rawResponse[i] == '}') openBraces--;
+          if (openBraces == 0 && rawResponse[i] == '}') {
+            endIndex = i;
+            break;
+          }
         }
 
-        List<String> lines = rawResponse.split('\n');
-        // Pick the first line that appears to be valid JSON (starts with '{').
-        String jsonLine = lines.firstWhere(
-              (line) => line.trim().startsWith('{'),
-          orElse: () => rawResponse,
-        );
-
-        // Optionally, trim extra characters after the last '}'.
-        int lastBraceIndex = jsonLine.lastIndexOf('}');
-        if (lastBraceIndex != -1) {
-          jsonLine = jsonLine.substring(0, lastBraceIndex + 1);
+        if (endIndex != -1) {
+          rawResponse = rawResponse.substring(0, endIndex + 1);
         }
 
-        // Now parse the cleaned JSON.
-        final responseData = jsonDecode(jsonLine);
+        final responseData = jsonDecode(rawResponse);
         final String aiResponse = responseData["content"] ?? "No response received.";
 
         print("AI Response: $aiResponse");
