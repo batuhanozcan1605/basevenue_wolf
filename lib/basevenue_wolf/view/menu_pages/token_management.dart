@@ -1,10 +1,12 @@
 import 'package:basevenue_wolf/basevenue_wolf/view_model/messages_view_model.dart';
+import 'package:basevenuewolf_sdk/basevenuewolf_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../color_palette.dart';
 import '../../consts.dart';
 import '../../utilities/propmts.dart';
+import '../../utilities/utilities.dart';
 
 class TokenManagementPage extends StatefulWidget {
   const TokenManagementPage({super.key});
@@ -15,7 +17,6 @@ class TokenManagementPage extends StatefulWidget {
 
 class _TokenManagementPageState extends State<TokenManagementPage> {
   bool _isFormExpanded = false;
-  bool _isSubmitted = false;
 
   final TextEditingController _projectNameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -26,6 +27,8 @@ class _TokenManagementPageState extends State<TokenManagementPage> {
 
   @override
   Widget build(BuildContext context) {
+    final sdk = BasevenueWolfSDK();
+    String tokenContractAddress = '0xfeaee5516b75566326f926330932b537d9ef2892';
     return Scaffold(
       backgroundColor: ColorPalette.background,
       body: Padding(
@@ -41,7 +44,26 @@ class _TokenManagementPageState extends State<TokenManagementPage> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    _buildInfoCard("Total Supply", "0 TOKEN"),
+                    FutureBuilder<List<dynamic>>(
+                      future: Future.wait([
+                        sdk.getTokenTotalSupply(tokenContractAddress),
+                        sdk.getTokenSymbol(tokenContractAddress),
+                      ]),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return _buildInfoCard("Total Supply", "Loading...");
+                        } else if (snapshot.hasError) {
+                          return _buildInfoCard("Total Supply", "Error");
+                        } else if (snapshot.hasData) {
+                          BigInt totalSupplyRaw = snapshot.data![0] as BigInt;
+                          String tokenSymbol = snapshot.data![1] as String;
+                          String totalSupplyFormatted = "${Utilities.formatTotalSupply(totalSupplyRaw)} $tokenSymbol";
+                          return _buildInfoCard("Total Supply", totalSupplyFormatted);
+                        } else {
+                          return _buildInfoCard("Total Supply", "N/A");
+                        }
+                      },
+                    ),
                     SizedBox(width: 16),
                     _buildInfoCard("Circulating Supply", "0 TOKEN"),
                   ],

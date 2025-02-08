@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../color_palette.dart';
-import '../../view_model/main_view_model.dart';
 import '../../view_model/messages_view_model.dart';
 
 class ChatInputField extends StatelessWidget {
@@ -9,7 +8,6 @@ class ChatInputField extends StatelessWidget {
 
   void _sendMessage(BuildContext context) {
     final messagesViewModel = context.read<MessagesViewModel>();
-    final mainViewModel = context.read<MainViewModel>();
     messagesViewModel.sendMessage(); // Now using the streaming function
   }
 

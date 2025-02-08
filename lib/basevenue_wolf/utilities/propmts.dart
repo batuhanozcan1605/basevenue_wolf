@@ -1,4 +1,7 @@
 class Prompts {
+
+
+
   static String createProjectTokenPrompt({
     required String projectName,
     required String description,
@@ -7,21 +10,29 @@ class Prompts {
     required String tokenSymbol,
     required String tokenFunctionality,
   }) {
-    return """
-    I am creating a token for my project: $projectName.
+    String additionalInfo(extras) {
+      if(extras != '') {
+        return  "Additional Info: $extras";
+      } else if(extras == '') {
+        return "" ;
+      }  else {
+        return "";
+    }
+    }
+
+      return """
+    Create token design for my game: $projectName with features below:
     
     Project Description: $description
-    
-    Additional Info: $extras
     
     Token Details:
     - Token Name: $tokenName
     - Token Symbol: $tokenSymbol
     - Functionality: $tokenFunctionality
     
-    Please generate tokenomics and suggestions for the best way to use this token in my project.
+    ${additionalInfo(extras)}
     """;
-  }
+    }
 
   /// Prompt for creating a Game Product (ERC20 Token)
   static String createGameProductPrompt({
