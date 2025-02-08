@@ -61,7 +61,7 @@ class _MainScreenState extends State<MainScreen> {
                 onTap: () => viewModel.updateMenu(MenuItem.tokenManagement),
               ),
               CustomMenuTile(
-                title: "Products",
+                title: "Product Management",
                 assetPath: productsPath,
                 isSelected: viewModel.selectedMenu == MenuItem.products,
                 onTap: () => viewModel.updateMenu(MenuItem.products),

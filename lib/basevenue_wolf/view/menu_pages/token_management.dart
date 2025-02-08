@@ -80,9 +80,9 @@ class _TokenManagementPageState extends State<TokenManagementPage> {
                   ? Center(
                 child: Row(
                   children: [
-                    _buildInfoCard("Total Supply", "0 TOKEN"),
+                    _buildInfoCard("Total Supply", ""),
                     SizedBox(width: 16),
-                    _buildInfoCard("Circulating Supply", "0 TOKEN"),
+                    _buildInfoCard("Circulating Supply", ""),
                   ],
                 )
               )

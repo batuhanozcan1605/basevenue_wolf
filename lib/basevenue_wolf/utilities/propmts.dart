@@ -1,7 +1,5 @@
 class Prompts {
 
-
-
   static String createProjectTokenPrompt({
     required String projectName,
     required String description,
@@ -53,8 +51,6 @@ class Prompts {
     - **Token Symbol:** $tokenSymbol
     - **Functionality:** $tokenFunctionality
     - **Price Ratio to Main Token:** $priceRatio
-
-    Please generate tokenomics and suggest the best way to use this token in my game economy.
     """;
   }
 
@@ -67,7 +63,7 @@ class Prompts {
     required String priceRatio,
   }) {
     return """
-    Create NFT token for my game: **$projectName**.
+    Create Item NFT for my game: **$projectName**.
 
     **Project Description:** $description
 
@@ -75,8 +71,6 @@ class Prompts {
     - **NFT Name:** $nftName
     - **Functionality:** $nftFunctionality
     - **Price Ratio to Main Token:** $priceRatio
-
-    Please generate use-case ideas and suggest the best way to integrate this NFT into my game.
     """;
   }
 
