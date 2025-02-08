@@ -40,6 +40,7 @@ class Prompts {
     required String tokenSymbol,
     required String tokenFunctionality,
     required String priceRatio,
+
   }) {
     return """
     Create product token for my game: **$projectName**.
@@ -61,6 +62,7 @@ class Prompts {
     required String nftName,
     required String nftFunctionality,
     required String priceRatio,
+    required String nftUri
   }) {
     return """
     Create Item NFT for my game: **$projectName**.
@@ -71,6 +73,7 @@ class Prompts {
     - **NFT Name:** $nftName
     - **Functionality:** $nftFunctionality
     - **Price Ratio to Main Token:** $priceRatio
+    - **NFT Image Uri Link:** $nftUri
     """;
   }
 

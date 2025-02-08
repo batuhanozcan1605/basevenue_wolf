@@ -19,6 +19,7 @@ class _ProductsPageState extends State<ProductsPage> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController functionalityController = TextEditingController();
   final TextEditingController priceRatioController = TextEditingController();
+  final TextEditingController nftUriController = TextEditingController();
 
   void handleCreateToken() {
     setState(() {
@@ -40,7 +41,8 @@ class _ProductsPageState extends State<ProductsPage> {
     String description = descriptionController.text.trim();
     String functionality = functionalityController.text.trim();
     String priceRatio = priceRatioController.text.trim().isEmpty ? "1:1" : priceRatioController.text.trim();
-
+    String nftUri = nftUriController.text.trim().isEmpty ? "ipfs://QmWjMLANwFb4RwmikL1mPQ87mcHBTQASCV7nuM8SbxjWyu/"
+        : nftUriController.text.trim();
     // Validate name before generating symbol
     String tokenSymbol = name.isNotEmpty ? name.toUpperCase() : "TKN";
 
@@ -62,6 +64,7 @@ class _ProductsPageState extends State<ProductsPage> {
         nftName: name.isNotEmpty ? name : "Unnamed NFT",
         nftFunctionality: functionality,
         priceRatio: priceRatio,
+        nftUri: nftUri
       );
     }
 
@@ -231,7 +234,33 @@ class _ProductsPageState extends State<ProductsPage> {
                 ),
               ),
             ),
-
+            SizedBox(height: 12),
+            if(!isCreatingToken)
+              TextField(
+                cursorColor: ColorPalette.primaryVariant,
+                controller: nftUriController,
+                style: TextStyle(color: Colors.white),
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "NFT Image Uri Link",
+                  labelStyle: TextStyle(
+                    color: Colors.white.withOpacity(0.5),
+                    fontWeight: FontWeight.bold,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: ColorPalette.primaryVariant, width: 1),
+                  ),
+                ),
+              ),
             SizedBox(height: 20),
             GestureDetector(
                 onTap: () => handleSubmit(context),
