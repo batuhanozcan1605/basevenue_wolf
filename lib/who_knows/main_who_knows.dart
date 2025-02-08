@@ -28,13 +28,6 @@ class WhoKnows extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    String dummyAddress = sdk.getDummyMainTokenAddress();
-
-
-
-    print("Adress: $dummyAddress");
-
-
     return ScreenUtilInit(
       designSize: Size(1280, 800), // Logical resolution for MacBook M1 (13-inch)
       minTextAdapt: true,
