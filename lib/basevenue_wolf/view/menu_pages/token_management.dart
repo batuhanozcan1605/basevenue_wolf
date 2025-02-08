@@ -2,6 +2,7 @@ import 'package:basevenue_wolf/basevenue_wolf/view_model/messages_view_model.dar
 import 'package:basevenuewolf_sdk/basevenuewolf_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_web3/ethereum.dart';
 import 'package:provider/provider.dart';
 import '../../color_palette.dart';
 import '../../consts.dart';
@@ -17,6 +18,39 @@ class TokenManagementPage extends StatefulWidget {
 
 class _TokenManagementPageState extends State<TokenManagementPage> {
   bool _isFormExpanded = false;
+  String? walletAddress;
+  String? tokenContractAddress;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchWalletAddress();
+  }
+
+  /// Requests account access and saves the first wallet address.
+  Future<void> fetchWalletAddress() async {
+    try {
+      // Request account access (this line assumes you have a valid 'ethereum'
+      // object available from your web3/JS interop, e.g. via flutter_web3 or similar).
+      final accounts = await ethereum!.requestAccount();
+      if (accounts.isNotEmpty) {
+        setState(() {
+          walletAddress = accounts.first;
+        });
+        print("Wallet Address: $walletAddress");
+        final sdk = BasevenueWolfSDK();
+        final tca = await sdk.getUserTokenAddress(walletAddress!);
+        print("tca $tca");
+        setState(() {
+          tokenContractAddress = tca;
+        });
+      } else {
+        print("No accounts returned.");
+      }
+    } catch (error) {
+      print("Error fetching wallet address: $error");
+    }
+  }
 
   final TextEditingController _projectNameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -25,10 +59,12 @@ class _TokenManagementPageState extends State<TokenManagementPage> {
   final TextEditingController _tokenSymbolController = TextEditingController();
   final TextEditingController _tokenFunctionalityController = TextEditingController();
 
+
+
   @override
   Widget build(BuildContext context) {
     final sdk = BasevenueWolfSDK();
-    String tokenContractAddress = '0xfeaee5516b75566326f926330932b537d9ef2892';
+
     return Scaffold(
       backgroundColor: ColorPalette.background,
       body: Padding(
@@ -36,18 +72,28 @@ class _TokenManagementPageState extends State<TokenManagementPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 80,),
+            SizedBox(height: 80),
             // Supply Information Cards
             SizedBox(
               height: 150,
-              child: SingleChildScrollView(
+              child: tokenContractAddress == null
+                  ? Center(
+                child: Row(
+                  children: [
+                    _buildInfoCard("Total Supply", "0 TOKEN"),
+                    SizedBox(width: 16),
+                    _buildInfoCard("Circulating Supply", "0 TOKEN"),
+                  ],
+                )
+              )
+                  : SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
                     FutureBuilder<List<dynamic>>(
                       future: Future.wait([
-                        sdk.getTokenTotalSupply(tokenContractAddress),
-                        sdk.getTokenSymbol(tokenContractAddress),
+                        sdk.getTokenTotalSupply(tokenContractAddress!),
+                        sdk.getTokenSymbol(tokenContractAddress!),
                       ]),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -57,7 +103,8 @@ class _TokenManagementPageState extends State<TokenManagementPage> {
                         } else if (snapshot.hasData) {
                           BigInt totalSupplyRaw = snapshot.data![0] as BigInt;
                           String tokenSymbol = snapshot.data![1] as String;
-                          String totalSupplyFormatted = "${Utilities.formatTotalSupply(totalSupplyRaw)} $tokenSymbol";
+                          String totalSupplyFormatted =
+                              "${Utilities.formatTotalSupply(totalSupplyRaw)} $tokenSymbol";
                           return _buildInfoCard("Total Supply", totalSupplyFormatted);
                         } else {
                           return _buildInfoCard("Total Supply", "N/A");

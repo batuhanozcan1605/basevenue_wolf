@@ -6,6 +6,7 @@ library;
 export 'src/basevenuewolf_sdk_base.dart';
 
 // TODO: Export any libraries intended for clients of this package.
+import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:web3dart/web3dart.dart';
@@ -18,7 +19,23 @@ class BasevenueWolfSDK {
   BasevenueWolfSDK()
       : _apiKey = _generateDummyApiKey();
 
-  String baseUrl = 'https://basevenuewolf.com/api';
+  String baseUrl = 'https://basevenue-wolf.vercel.app';
+
+  Future<String> getUserTokenAddress(String userWalletAddress) async {
+    // If your API is served from the same origin as your app, you can use a relative URL.
+    final Uri url = Uri.parse("$baseUrl/api/sdk?userWalletAddress=$userWalletAddress");
+
+    final response = await http.get(url, headers: {
+      "Content-Type": "application/json",
+    });
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      return jsonResponse["data"] as String;
+    } else {
+      throw Exception("Error: ${response.statusCode} - ${response.body}");
+    }
+  }
 
   // Dummy API key generator for the POC
   static String _generateDummyApiKey() {

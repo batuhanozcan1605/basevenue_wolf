@@ -44,7 +44,7 @@ class Prompts {
     required String priceRatio,
   }) {
     return """
-    I am creating an ERC20 token for my game project: **$projectName**.
+    Create product token for my game: **$projectName**.
 
     **Project Description:** $description
 
@@ -67,7 +67,7 @@ class Prompts {
     required String priceRatio,
   }) {
     return """
-    I am creating an NFT for my game project: **$projectName**.
+    Create NFT token for my game: **$projectName**.
 
     **Project Description:** $description
 
