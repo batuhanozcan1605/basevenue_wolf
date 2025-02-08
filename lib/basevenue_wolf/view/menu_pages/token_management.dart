@@ -15,6 +15,7 @@ class TokenManagementPage extends StatefulWidget {
 
 class _TokenManagementPageState extends State<TokenManagementPage> {
   bool _isFormExpanded = false;
+  bool _isSubmitted = false;
 
   final TextEditingController _projectNameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -76,28 +77,35 @@ class _TokenManagementPageState extends State<TokenManagementPage> {
             // Submit Token Button
             if (_isFormExpanded) Align(
               alignment: Alignment.bottomLeft,
-              child: GestureDetector(
-                onTap: () {
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
 
-                  String projectName = _projectNameController.text.trim();
-                  String description = _descriptionController.text.trim();
-                  String extras = _extrasController.text.trim();
-                  String tokenName = _tokenNameController.text.trim();
-                  String tokenSymbol = _tokenSymbolController.text.trim();
-                  String tokenFunctionality = _tokenFunctionalityController.text.trim();
+                      String projectName = _projectNameController.text.trim();
+                      String description = _descriptionController.text.trim();
+                      String extras = _extrasController.text.trim();
+                      String tokenName = _tokenNameController.text.trim();
+                      String tokenSymbol = _tokenSymbolController.text.trim();
+                      String tokenFunctionality = _tokenFunctionalityController.text.trim();
 
-                  String aiPrompt = Prompts.createProjectTokenPrompt(
-                    projectName: projectName,
-                    description: description,
-                    extras: extras,
-                    tokenName: tokenName,
-                    tokenSymbol: tokenSymbol,
-                    tokenFunctionality: tokenFunctionality,
-                  );
+                      String aiPrompt = Prompts.createProjectTokenPrompt(
+                        projectName: projectName,
+                        description: description,
+                        extras: extras,
+                        tokenName: tokenName,
+                        tokenSymbol: tokenSymbol,
+                        tokenFunctionality: tokenFunctionality,
+                      );
 
-                  context.read<MessagesViewModel>().setMessageText(aiPrompt);
-                },
-                child: Image.asset(submitButtonPath, height: 50,)
+                      context.read<MessagesViewModel>().setMessageText(aiPrompt);
+                    },
+                    child: Image.asset(submitButtonPath, height: 50,)
+                  ),
+                  SizedBox(width: 10),
+
+
+                ],
               ),
             ),
           ],

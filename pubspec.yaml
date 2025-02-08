@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  basevenuewolf_sdk:
+    path: ./basevenuewolf_sdk
   flutter_screenutil: ^5.9.3
   web3dart: ^2.7.1
   flutter_web3: ^2.1.9

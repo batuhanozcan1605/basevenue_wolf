@@ -10,11 +10,12 @@ import 'dart:math';
 import 'package:http/http.dart' as http;
 
 class BasevenueWolfSDK {
-  final String baseUrl;
   final String _apiKey;
 
-  BasevenueWolfSDK({required this.baseUrl})
+  BasevenueWolfSDK()
       : _apiKey = _generateDummyApiKey();
+
+  String baseUrl = 'https://example.com/api';
 
   // Dummy API key generator for the POC
   static String _generateDummyApiKey() {
@@ -43,5 +44,10 @@ class BasevenueWolfSDK {
     } else {
       throw Exception('Error fetching token address');
     }
+  }
+
+  String getDummyMainTokenAddress() {
+    print("SDK has worked.");
+    return "0x123456789";
   }
 }

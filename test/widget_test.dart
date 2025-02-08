@@ -13,7 +13,7 @@ import 'package:basevenue_wolf/who_knows/main_who_knows.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const WhoKnows());
+    await tester.pumpWidget(WhoKnows());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

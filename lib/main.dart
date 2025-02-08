@@ -14,15 +14,16 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
   );
+
   runApp(BasevenueWolf());
 }
-
 
 class BasevenueWolf extends StatelessWidget {
   const BasevenueWolf({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MainViewModel()),
