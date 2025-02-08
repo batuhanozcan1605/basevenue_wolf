@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'basevenue_wolf/color_palette.dart';
 import 'basevenue_wolf/view_model/messages_view_model.dart';
 import 'firebase_options.dart';
 
@@ -39,6 +40,10 @@ class BasevenueWolf extends StatelessWidget {
             },
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
+              textSelectionTheme: TextSelectionThemeData(
+               // cursorColor: Colors.red, // Cursor color
+                selectionColor: ColorPalette.primary, // Highlight color
+              ),
               textTheme: TextTheme(
                 bodyLarge: TextStyle(color: Colors.white),
                 bodyMedium: TextStyle(color: Colors.white),

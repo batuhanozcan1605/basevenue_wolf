@@ -26,7 +26,7 @@ class ChatMessagesList extends StatelessWidget {
               color: isUser ? ColorPalette.primaryVariant : ColorPalette.secondary,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Text(
+            child: SelectableText(
               msg["text"]!,
               style: TextStyle(color: Colors.white),
             ),

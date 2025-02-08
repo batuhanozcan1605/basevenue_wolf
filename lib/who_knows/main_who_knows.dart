@@ -3,8 +3,17 @@ import 'package:basevenuewolf_sdk/basevenuewolf_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final sdk = BasevenueWolfSDK();
+  String tokenContractAddress = '0xfeaee5516b75566326f926330932b537d9ef2892';
+  String tokenName = await sdk.getTokenName(tokenContractAddress);
+  String ownerAddress = '0xdb7069c7261dce92938849c099BCc4a48ce92E96';
+  BigInt rawBalance = await sdk.getTokenBalance(tokenContractAddress, ownerAddress);
+  print("Token Name: $tokenName");
+
+  String formattedBalance = sdk.formatTokenBalance(rawBalance);
+  print("Formatted Balance: $formattedBalance");
   runApp(WhoKnows());
 }
 
@@ -17,7 +26,11 @@ class WhoKnows extends StatelessWidget {
   Widget build(BuildContext context) {
 
     String dummyAddress = sdk.getDummyMainTokenAddress();
+
+
+
     print("Adress: $dummyAddress");
+
 
     return ScreenUtilInit(
       designSize: Size(1280, 800), // Logical resolution for MacBook M1 (13-inch)
