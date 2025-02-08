@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_web3/ethereum.dart';
 import 'package:http/http.dart' as http;
 
 class MessagesViewModel extends ChangeNotifier {
@@ -34,13 +35,20 @@ class MessagesViewModel extends ChangeNotifier {
   }
 
   Future<void> sendMessage() async {
+    final accounts = await ethereum!.requestAccount(); // Request account access
+    String? walletAddress = accounts.first;
+    print("wallet adress ${walletAddress}");
+
     final userMessage = messageController.text.trim();
     if (userMessage.isEmpty) return;
     print("send message");
     addMessage("user", userMessage);
 
     final requestBody = jsonEncode({
-      "messages": messages.map((msg) => {"role": msg["role"], "content": msg["text"]}).toList(),
+      "messages": messages
+          .map((msg) => {"role": msg["role"], "content": msg["text"]})
+          .toList(),
+      "userWalletAddress": "$walletAddress"
     });
     print("Error requestBody: $requestBody");
     try {
