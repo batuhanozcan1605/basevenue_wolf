@@ -1,7 +1,11 @@
+import 'package:basevenue_wolf/basevenue_wolf/utilities/utilities.dart';
 import 'package:basevenue_wolf/who_knows/view/game_area.dart';
+import 'package:basevenue_wolf/who_knows/view_model/game_view_model.dart';
 import 'package:basevenue_wolf/who_knows/widgets/custom_button.dart';
+import 'package:basevenuewolf_sdk/basevenuewolf_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../color_palette.dart';
 import '../consts.dart';
@@ -34,6 +38,7 @@ PreferredSizeWidget _appBar() => PreferredSize(
   child: AppBar(
     toolbarHeight: 100,
     title: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 96.0),
@@ -42,6 +47,18 @@ PreferredSizeWidget _appBar() => PreferredSize(
             height: 50,
           ),
         ),
+        SizedBox(width: 100,),
+        Consumer<GameViewModel>(
+          builder: (BuildContext context, value, Widget? child) {
+            final sdk = BasevenueWolfSDK();
+            return Column(
+              children: [
+                Text("Total Supply to show fetched data via SDK: ${sdk.formatTotalSupply(value.totalSupply!).toString()}", style: TextStyle(color: Colors.black),),
+                Text("Symbol: ${value.tokenSymbol}", style: TextStyle(color: Colors.black),)
+              ],
+            );
+          },
+        )
       ],
     ),
     actions: [

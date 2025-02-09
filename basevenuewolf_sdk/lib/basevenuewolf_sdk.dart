@@ -7,7 +7,7 @@ export 'src/basevenuewolf_sdk_base.dart';
 
 // TODO: Export any libraries intended for clients of this package.
 import 'dart:convert';
-import 'dart:math';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:web3dart/web3dart.dart';
 import 'package:intl/intl.dart';
@@ -18,6 +18,8 @@ class BasevenueWolfSDK {
   String baseUrl = 'https://basevenue-wolf.vercel.app';
 
   Future<String> getUserTokenAddress(String userWalletAddress) async {
+
+    debugPrint("userWalletAddress $userWalletAddress");
     // If your API is served from the same origin as your app, you can use a relative URL.
     final Uri url = Uri.parse(
         "$baseUrl/api/sdk?userWalletAddress=$userWalletAddress");
@@ -25,7 +27,7 @@ class BasevenueWolfSDK {
     final response = await http.get(url, headers: {
       "Content-Type": "application/json",
     });
-
+    debugPrint("response.statusCode ${response.statusCode}");
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
       return jsonResponse["data"] as String;
@@ -249,6 +251,16 @@ class BasevenueWolfSDK {
     // Create a formatter that displays no decimal places and uses commas as thousand separators.
     final formatter = NumberFormat("#,##0", "en_US");
     return formatter.format(tokens);
+  }
+
+   String formatTotalSupply(BigInt rawSupply, {int decimals = 18}) {
+    print("rawSupply $rawSupply");
+    // Convert BigInt to double value based on token decimals.
+    double supplyValue = rawSupply / BigInt.from(math.pow(10, decimals));
+
+    // Use NumberFormat to add commas (no decimal places)
+    final formatter = NumberFormat("#,##0", "en_US");
+    return formatter.format(supplyValue);
   }
 
 }

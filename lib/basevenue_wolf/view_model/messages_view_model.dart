@@ -37,7 +37,7 @@ class MessagesViewModel extends ChangeNotifier {
   Future<void> sendMessage() async {
     final accounts = await ethereum!.requestAccount(); // Request account access
     String? walletAddress = accounts.first;
-    print("wallet adress ${walletAddress}");
+    debugPrint("wallet adress ${walletAddress}");
 
     final userMessage = messageController.text.trim();
     if (userMessage.isEmpty) return;

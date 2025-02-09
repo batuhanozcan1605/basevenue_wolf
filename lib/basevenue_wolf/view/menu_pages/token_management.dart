@@ -40,7 +40,7 @@ class _TokenManagementPageState extends State<TokenManagementPage> {
         print("Wallet Address: $walletAddress");
         final sdk = BasevenueWolfSDK();
         final tca = await sdk.getUserTokenAddress(walletAddress!);
-        print("tca $tca");
+        debugPrint("tca $tca");
         setState(() {
           tokenContractAddress = tca;
         });
